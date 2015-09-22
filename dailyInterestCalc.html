@@ -1,0 +1,85 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body>
+
+    <form name="dailyintcalc" id="dailyintcalc">
+        <table>
+            <tr><th colspan="2">Daily Interest Calculator</th></tr>
+            <tr>
+
+                <td align="right">Loan Principal (Balance Owed)</td>
+
+
+
+                <td align="left">
+                     <input type="text" name="principal" id="principal" value="0" size="10" maxlength="10" onBlur="validate(this)" />
+                </td>
+            </tr>
+
+            <tr>
+                <td align="right">Number of days since last payment</td>
+
+
+
+                <td align="left">
+                    &nbsp;&nbsp;
+                    <input type="text" name="days" id="days" value="0" size="4" maxlength="4" onBlur="validate(this)" />
+                </td>
+            </tr>
+
+            <tr>
+
+                <td align="right">Annual Interest Rate</td>
+
+
+
+                <td align="left">&nbsp;&nbsp; <input type="text" name="APR" id="APR" value="0" size="5" maxlength="5" onBlur="validate(this)" />%</td>
+            </tr>
+            <tr>
+                <td align="right">Daily Interest Rate Factor</td>
+                <td align="left">&nbsp;&nbsp;&nbsp; <input type="text" name="IRF" id="IRF" size="10" disabled value="0" style="background-color: #FFFFFF; border:none;" /></td>
+            </tr>
+            <tr>
+
+                <td align="right"><strong>Interest amount owed<br />since your last payment</strong></td>
+
+
+
+                <td align="left" style="font-weight:bold;">
+                    $ <input type="text" name="dailyint" id="dailyint" size="8" disabled value="0" style="background-color: #FFFFFF; border:none;font-weight:bold;" />
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left"><input type="reset" class="oButton" value="Clear Form" /></td>
+                <td align="right"><input type="button" name="calcbtn" value="Calculate" class="oButton" onclick="DailyInterestCalc()" /></td>
+            </tr>
+
+
+        </table>
+
+    </form>
+    <script language="javascript">
+var dailyintcalc = document.forms['dailyintcalc'];
+function DailyInterestCalc() {
+	var aprrate = dailyintcalc.APR.value;
+
+	var factor = (aprrate/100) / 365.25;
+	var factorfixed = factor.toFixed(8);
+	dailyintcalc.IRF.value = factorfixed;
+
+	var irfrate = factor.toFixed(8);
+	var interest = irfrate * dailyintcalc.days.value * dailyintcalc.principal.value;
+	var interestfixed = interest.toFixed(2);
+	dailyintcalc.dailyint.value = interestfixed;
+
+	return true;
+}
+    </script>
+
+</body>
+</html>
